@@ -1,4 +1,5 @@
 import string
+import sys
 import time
 import os
 
@@ -13,8 +14,18 @@ def make_new_words(start_word):
 
     return new_words
 
-s = make_new_words("wuxingyisgfs")
-print s
-for i in s:
-    os.system('cleos --wallet-url=http://127.0.0.1:8889 create account eosio %s EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV' % i)
-    time.sleep(0.1)
+def createAccounts(startword):
+    s = make_new_words(startword)
+    print len(s)
+    # in my system keosd is runing at 8889 port
+    os.system('cleos --wallet-url=http://127.0.0.1:8889 wallet unlock --password=PW5JDUhcbjYFmeW6yYAgpVRZZBH3jRcPr7VWAmcj5Puqaapzutjd8')
+    print s
+    for i in s:
+        r = os.system('cleos --wallet-url=http://127.0.0.1:8889 create account eosio %s EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV' % i)
+        if r is not 0:
+            time.sleep(0.1)
+            os.system('cleos --wallet-url=http://127.0.0.1:8889 create account eosio %s EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV' % i)
+
+
+if __name__ == "__main__":
+    createAccounts(sys.argv[1])
