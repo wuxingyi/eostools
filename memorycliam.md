@@ -23,7 +23,7 @@ When the amount of the ```from_acnts``` becomes zero, his items is erased from d
 
 
 ## memory claim: an experiment
-In ```testcliam.py```, we check memory usage of the following steps:  
+In ```testcliam.py```(if you want to run it, please modify wallet password and account public key), we check memory usage of the following steps:  
 1、create the contract account,   
 2、the issue a token,   
 3、issue 1000 tokens to 1000 clients,  
